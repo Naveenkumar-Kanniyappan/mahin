@@ -1,0 +1,54 @@
+/* Add your custom styles here */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
+
+.form-row input, .form-row select {
+    width: 300px;
+    padding: 5px;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+.actions button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.photo-preview {
+    max-width: 150px;
+    max-height: 150px;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.photo-upload-btn {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
