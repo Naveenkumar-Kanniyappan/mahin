@@ -61,17 +61,6 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-### Step 4: Database Configuration
-Update your `.env` file with your database credentials:
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=mahin_facility
-DB_USERNAME=dckap
-DB_PASSWORD=Dckap2023Ecommerce
-```
-
 ### Step 5: Database Setup
 ```bash
 # Run migrations to create tables
@@ -104,14 +93,7 @@ chmod -R 775 bootstrap/cache
 # Start the development server
 php artisan serve
 
-# The application will be available at http://localhost:8000
 ```
-
-## 🔑 Default Admin Credentials
-
-- **Email**: admin@mahinfacility.com
-- **Password**: admin123
-
 ## 📖 How to Use
 
 ### For Regular Users:
