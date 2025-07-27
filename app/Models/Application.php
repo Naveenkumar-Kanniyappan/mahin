@@ -30,6 +30,12 @@ class Application extends Model
 
     protected $hidden = []; // No hidden attributes
 
+    protected $casts = [
+        'date' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
     protected static function boot()
     {
         parent::boot();

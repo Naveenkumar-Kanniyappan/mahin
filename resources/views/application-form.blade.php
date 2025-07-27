@@ -5,119 +5,238 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahin Facility Services Application</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-           body {
-            font-family: Arial, sans-serif;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 50%, #0D47A1 100%);
+            min-height: 100vh;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #2196F3;
             padding-bottom: 20px;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 150px;
+            height: 3px;
+            background: #1976D2;
         }
         .form-row {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
+            gap: 15px;
         }
+        
         .form-row label {
             width: 200px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #1976D2;
+            flex-shrink: 0;
         }
+        
         .form-row input, .form-row select {
             flex: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-row input:focus, .form-row select:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 10px rgba(33, 150, 243, 0.2);
+            transform: translateY(-1px);
         }
         .photo-upload {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #2196F3;
+            border-radius: 10px;
+            background: #E3F2FD;
         }
+        
         .photo-preview {
             width: 150px;
-            height: 150px;
+            height: 180px;
             object-fit: cover;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 10px;
+            border: 3px solid #2196F3;
+            border-radius: 10px;
+            margin: 10px auto;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: #f5f5f5;
         }
-        .photo-upload-btn {
-            background: #4CAF50;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            display: inline-block;
+        
+        .default-user-icon {
+            width: 150px;
+            height: 180px;
+            border: 3px solid #2196F3;
+            border-radius: 10px;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .default-user-icon i {
+            font-size: 4rem;
+            color: #1976D2;
+            opacity: 0.7;
+        }
+        
+        .photo-upload input[type="file"] {
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            background: white;
         }
         .actions {
-            margin-top: 20px;
+            margin-top: 30px;
             display: flex;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
+            justify-content: center;
         }
+        
         .actions button, .actions a {
-            padding: 10px 15px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 4px;
+            border-radius: 25px;
             cursor: pointer;
             text-decoration: none;
             font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 120px;
+            justify-content: center;
+        }
+        #searchBtn {
+            background: linear-gradient(135deg, #1976D2, #0D47A1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
         }
         .btn-submit {
-            background: #2196F3;
+            background: linear-gradient(135deg, #1976D2, #0D47A1);
             color: white;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
         }
+        
         .btn-update {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #1976D2, #0D47A1);
             color: white;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
         }
+        
         .btn-clear {
-            background: #f44336;
+            background: linear-gradient(135deg, #1565C0, #0D47A1);
             color: white;
+            box-shadow: 0 4px 15px rgba(21, 101, 192, 0.4);
         }
+        
         .btn-download {
-            background: #607d8b;
+            background: linear-gradient(135deg, #1976D2, #1565C0);
             color: white;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
         }
+        
         .btn-print {
-            background: #ff9800;
+            background: linear-gradient(135deg, #1976D2, #1565C0);
             color: white;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
         }
+        
         .btn-cancel {
-            background: #9e9e9e;
+            background: linear-gradient(135deg, #42A5F5, #1976D2);
             color: white;
+            box-shadow: 0 4px 15px rgba(66, 165, 245, 0.4);
+        }
+        
+        .btn-back {
+            background: linear-gradient(135deg, #1976D2, #1565C0);
+            color: white;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+        }
+        
+        .btn-edit {
+            background: linear-gradient(135deg, #1976D2, #0D47A1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+        }
+        
+        .actions button:hover, .actions a:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+        
+        .actions button:active, .actions a:active {
+            transform: translateY(0);
         }
         .alert {
-            padding: 10px;
+            padding: 15px 20px;
             margin-bottom: 20px;
-            border-radius: 4px;
+            border-radius: 10px;
+            font-weight: 500;
+            border-left: 5px solid;
         }
+        
         .alert-danger {
-            background: #ffdddd;
-            border-left: 4px solid #f44336;
+            background: #ffebee;
+            color: #c62828;
+            border-left-color: #f44336;
         }
+        
         .alert-success {
-            background: #ddffdd;
-            border-left: 4px solid #4CAF50;
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-left-color: #4CAF50;
+        }
+        
+        .alert-info {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-left-color: #2196F3;
         }
         .edit-mode {
-            background-color: #fffde7;
+            background: linear-gradient(135deg, #fffde7, #fff8e1);
+            border: 2px solid #FF9800;
         }
         .spinner {
             display: inline-block;
@@ -129,8 +248,41 @@
             border-radius: 50%;
             animation: spinner-border .75s linear infinite;
         }
+        
         @keyframes spinner-border {
             to { transform: rotate(360deg); }
+        }
+        
+        /* Additional styling for better appearance */
+        .right-info {
+            background: #E3F2FD;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #2196F3;
+        }
+        
+        .right-info input {
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+        
+        .appno {
+            color: #1976D2;
+        }
+        
+        .appno span {
+            background: white;
+            color: #1976D2;
+            font-weight: bold;
+            border: 2px solid #2196F3 !important;
+        }
+        
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #2196F3, #1976D2, #2196F3);
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -151,7 +303,7 @@
                     <img src="{{ asset('images/form-logo.jpeg') }}" alt="Logo" style="width: 140px; height: 140px; object-fit: contain;">
                 </div>
                 <div style="text-align: center;">
-                    <img src="{{ asset('images/form-tittle.jpeg') }}" alt="Company Logo" style="width: 40%;">
+                    <img src="{{ asset('images/form-tittle.jpeg') }}" alt="Company Logo" style="width: 70%; height: 60px;">
                     <p style="margin-top: 5px; text-align: center; font-size: large; color: #0601a0;">
                         23A, Bus Stand Road,<br>
                         Aruppukkottai-626101, Virudhunagar (Dit).
@@ -206,10 +358,22 @@
             <div class="photo-upload">
                 <label for="photo" style="font-weight: bold; display: block; margin-bottom: 5px;">Upload Photo:</label>
                 <input type="file" id="photo" name="photo" accept="image/*" onchange="previewPhoto(event)" {{ !isset($application) ? 'required' : '' }}>
-                <img id="photoPreview" class="photo-preview" 
-                     src="{{ isset($application) && $application->photo_path ? asset('storage/'.$application->photo_path) : 'https://via.placeholder.com/150' }}" 
-                     alt="Photo Preview" 
-                     style="{{ (isset($application) && $application->photo_path) ? 'display: block;' : 'display: none;' }}">
+                <div id="photoContainer">
+                    @if(isset($application) && $application->photo_path)
+                        <img id="photoPreview" class="photo-preview" 
+                             src="{{ asset('storage/'.$application->photo_path) }}" 
+                             alt="Photo Preview" 
+                             style="display: block;">
+                    @else
+                        <div id="defaultIcon" class="default-user-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <img id="photoPreview" class="photo-preview" 
+                             src="" 
+                             alt="Photo Preview" 
+                             style="display: none;">
+                    @endif
+                </div>
             </div>
 
             <!-- Personal Information -->
@@ -295,11 +459,11 @@
             <div class="form-row">
                 <label for="searchAppNo">Search Application:</label>
                 <input type="text" id="searchAppNo" name="searchAppNo" placeholder="APP number or ID" style="width: 150px;">
-                <button type="button" class="btn-download" onclick="searchApplication()" style="margin-left: 10px;">Search</button>
+                <button type="button" id="searchBtn" class="btn-download" onclick="searchApplication()" style="margin-left: 10px;">Search</button>
             </div>
 
             <div class="actions">
-                <button type="button" class="btn-clear" onclick="clearForm()">Clear Form</button>
+                <!-- <button type="button" class="btn-clear" onclick="clearForm()">Clear Form</button> -->
                 <button type="button" class="btn-download" onclick="downloadPDF()">Download PDF</button>
                 <button type="button" class="btn-print" onclick="window.print()">Print</button>
                 @if(isset($application))
@@ -320,8 +484,14 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const preview = document.getElementById('photoPreview');
+                    const defaultIcon = document.getElementById('defaultIcon');
+                    
                     preview.src = e.target.result;
                     preview.style.display = 'block';
+                    
+                    if (defaultIcon) {
+                        defaultIcon.style.display = 'none';
+                    }
                 };
                 reader.readAsDataURL(file);
             }
@@ -341,13 +511,86 @@
             html2pdf().set(opt).from(element).save();
         }
 
+        // Enable form for editing
+        function enableFormForEditing() {
+            // Enable all form fields
+            const formElements = document.querySelectorAll('#applicationForm input, #applicationForm select, #applicationForm textarea');
+            formElements.forEach(element => {
+                element.disabled = false;
+                element.readOnly = false;
+            });
+            
+            // Show submit button as Update
+            const submitBtn = document.getElementById('submitBtn');
+            if(submitBtn) {
+                submitBtn.style.display = 'inline-flex';
+                submitBtn.textContent = 'Update';
+                submitBtn.className = 'btn-update';
+            }
+            
+            // Hide navigation buttons during editing
+            const navButtons = document.querySelectorAll('.btn-back, .btn-edit');
+            navButtons.forEach(btn => btn.style.display = 'none');
+            
+            showAlert('info', 'Form enabled for editing. Make your changes and click Update.');
+        }
+        
+        // Disable form for viewing
+        function disableFormForViewing() {
+            // Disable all form fields
+            const formElements = document.querySelectorAll('#applicationForm input, #applicationForm select, #applicationForm textarea');
+            formElements.forEach(element => {
+                element.disabled = true;
+                element.readOnly = true;
+            });
+            
+            // Hide submit button
+            const submitBtn = document.getElementById('submitBtn');
+            if(submitBtn) {
+                submitBtn.style.display = 'none';
+            }
+        }
+
         // Clear form
         function clearForm() {
             if(confirm('Are you sure you want to clear all form data?')) {
                 document.getElementById('applicationForm').reset();
                 const preview = document.getElementById('photoPreview');
+                const defaultIcon = document.getElementById('defaultIcon');
+                
                 preview.style.display = 'none';
-                preview.src = 'https://via.placeholder.com/150';
+                preview.src = '';
+                
+                if (defaultIcon) {
+                    defaultIcon.style.display = 'flex';
+                }
+                
+                // Remove navigation buttons
+                const navButtons = document.querySelectorAll('.btn-cancel, .btn-back, .btn-edit');
+                navButtons.forEach(btn => btn.remove());
+                
+                // Reset form action and method
+                const form = document.getElementById('applicationForm');
+                form.action = '/applications';
+                const methodInput = form.querySelector('input[name="_method"]');
+                if(methodInput) methodInput.remove();
+                const idInput = form.querySelector('input[name="id"]');
+                if(idInput) idInput.remove();
+                
+                // Reset submit button
+                const submitBtn = document.getElementById('submitBtn');
+                if(submitBtn) {
+                    submitBtn.textContent = 'Submit';
+                    submitBtn.className = 'btn-submit';
+                    submitBtn.style.display = 'inline-flex';
+                }
+                
+                // Enable form fields
+                const formElements = document.querySelectorAll('#applicationForm input, #applicationForm select, #applicationForm textarea');
+                formElements.forEach(element => {
+                    element.disabled = false;
+                    element.readOnly = false;
+                });
             }
         }
 
@@ -399,12 +642,19 @@
                 
                 // Set photo preview
                 const preview = document.getElementById('photoPreview');
+                const defaultIcon = document.getElementById('defaultIcon');
+                
                 if(data.photo_path) {
                     preview.src = `/storage/${data.photo_path}`;
                     preview.style.display = 'block';
+                    if (defaultIcon) {
+                        defaultIcon.style.display = 'none';
+                    }
                 } else {
-                    preview.src = 'https://via.placeholder.com/150';
                     preview.style.display = 'none';
+                    if (defaultIcon) {
+                        defaultIcon.style.display = 'flex';
+                    }
                 }
                 
                 // Update form action for update
@@ -436,14 +686,47 @@
                     submitBtn.className = 'btn-update';
                 }
                 
-                // Add Cancel button if not exists
-                if(!document.querySelector('.btn-cancel')) {
-                    const cancelBtn = document.createElement('a');
-                    cancelBtn.href = `/applications/${data.id}`;
-                    cancelBtn.className = 'btn-cancel';
-                    cancelBtn.textContent = 'Cancel';
-                    document.querySelector('.actions').appendChild(cancelBtn);
-                }
+                // Remove existing navigation buttons
+                const existingNavButtons = document.querySelectorAll('.btn-cancel, .btn-back, .btn-edit');
+                existingNavButtons.forEach(btn => btn.remove());
+                
+                // Add navigation buttons
+                const actionsDiv = document.querySelector('.actions');
+                
+                // Add Back to List button
+                const backBtn = document.createElement('button');
+                backBtn.type = 'button';
+                backBtn.className = 'btn btn-back';
+                backBtn.textContent = 'Back to List';
+                backBtn.onclick = function() {
+                    window.location.href = '/';
+                };
+                actionsDiv.appendChild(backBtn);
+                
+                // Add Edit button
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn-edit';
+                editBtn.textContent = 'Edit';
+                editBtn.onclick = function() {
+                    // Enable form fields for editing
+                    enableFormForEditing();
+                };
+                actionsDiv.appendChild(editBtn);
+                
+                // Add Cancel button
+                const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'btn btn-cancel';
+                cancelBtn.textContent = 'Cancel';
+                cancelBtn.onclick = function() {
+                    clearForm();
+                    window.location.href = '/';
+                };
+                actionsDiv.appendChild(cancelBtn);
+                
+                // Disable form for viewing
+                disableFormForViewing();
                 
                 // Show success message
                 showAlert('success', 'Application loaded successfully!');
@@ -483,7 +766,15 @@
                 });
 
                 // Add CSRF token and method
-                formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+                let csrfToken = form.querySelector('input[name="_token"]')?.value;
+                if (!csrfToken) {
+                    // Fallback to meta tag if form token not found
+                    csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+                }
+                if (!csrfToken) {
+                    throw new Error('CSRF token not found. Please refresh the page and try again.');
+                }
+                formData.append('_token', csrfToken);
                 if (isUpdate) {
                     formData.append('_method', 'PUT');
                     formData.append('id', form.id.value);

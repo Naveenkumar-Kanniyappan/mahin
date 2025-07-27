@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-use PDF;
 use App\Exports\ApplicationsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ApplicationController extends Controller
 {
@@ -110,7 +110,7 @@ class ApplicationController extends Controller
             return response()->json([
                 'id' => $application->id,
                 'application_no' => $application->application_no,
-                'date' => $application->date->format('Y-m-d'),
+                'date' => $application->date ? $application->date->format('Y-m-d') : $application->date,
                 'location' => $application->location,
                 'name' => $application->name,
                 'father_name' => $application->father_name,
@@ -133,7 +133,7 @@ class ApplicationController extends Controller
 
     public function downloadPDF(Application $application)
     {
-        $pdf = PDF::loadView('pdf.application', compact('application'));
+        $pdf = Pdf::loadView('pdf.application', compact('application'));
         return $pdf->download('application-'.$application->application_no.'.pdf');
     }
 

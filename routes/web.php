@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
+
 
 // Public routes
 Route::get('/', [ApplicationController::class, 'create'])->name('application.form');
@@ -15,7 +17,8 @@ Route::put('/applications/{application}', [ApplicationController::class, 'update
 Auth::routes(['register' => false]);
 
 // Admin routes
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->group(function ()
+ {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     
     Route::prefix('applications')->group(function () {
