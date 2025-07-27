@@ -13,7 +13,7 @@ A complete Laravel-based job application management system with admin dashboard,
 - **Auto-save**: Automatic form data saving
 
 ### 🔐 Admin Features
-- **Admin Login**: Secure admin access (username: admin@mahinfacility.com, password: admin123)
+- **Admin Login**: Secure admin access
 - **Dashboard**: Statistics and application overview with charts
 - **CRUD Operations**: Create, Read, Update, Delete applications
 - **Search & Filter**: Advanced search by job type and other criteria
